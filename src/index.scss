@@ -1,0 +1,20 @@
+@import "~bootstrap/scss/bootstrap.scss";
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.header {
+  background-color: #82cdff;
+}
+
+.header_cell {
+  text-align: center;
+  display: inline-block;
+}
+
+.header_cell:hover {
+  background-color: aqua;
+
+}
