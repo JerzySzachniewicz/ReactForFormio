@@ -12,7 +12,6 @@ export default class AuthService {
                 password
             })
         }).then(res => {
-            debugger;
             this.setToken(res.headers.get("Authorization"));
             return Promise.resolve(res);
         })
@@ -51,7 +50,6 @@ export default class AuthService {
         })
             .then(this._checkStatus)
             .then(response => {
-                debugger;
                 const contentLength = response.headers.get("Content-Length");
                 return (contentLength !== "0") ? response.json() : response;
             })

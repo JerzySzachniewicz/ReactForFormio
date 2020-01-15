@@ -1,34 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Form} from 'react-formio';
+import AuthorizationProvider from "./AuthorizationProvider";
 
 export default class App extends Component{
+
     constructor(props) {
         super(props);
-        this.state = {
-            color: "{props.color}",
-            lol: {}
-        };
+        this.state = {form: {},
+        loaded : false};
+        this.authorizationProvider = new AuthorizationProvider();
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/test')
-            .then(res => res.json())
+        this.authorizationProvider.fetch('/forms/formSchema/' + this.props.formId)
             .then((data) => {
-                console.log(data);
-                this.setState({ color: data,
-                    lol:{}
+                let parsedData = data;
+                parsedData['components'] = JSON.parse(data['components'])['components'];
+                this.setState({ form: parsedData,
+                    loaded : true
                 })
             })
             .catch(console.log)
     }
 
     render() {
-        return <Form form={this.state.color["form"]} onSubmit={(schema) => this.sendData(schema)} onChange={(submission) => this.onChange1(submission)} submission={this.state.lol}/>
+        return this.state.loaded ? <Form form={this.state.form} onSubmit={(schema) => this.sendData(schema)}/> : <div>Form is loading</div>
     }
 
     sendData = (schema) => {
-        fetch('http://localhost:8080/test', {
+        this.authorizationProvider.fetch('/forms/form/' + this.props.formId, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -38,13 +39,5 @@ export default class App extends Component{
         }).then(r => console.log(r))
     };
 
-    onChange1 = (submission) => {
-        if (submission.changed !== undefined) {
-            this.setState({lol: {data: {email: 'test@test.pl'}}});
-            console.log(submission);
-        } else {
-            console.log('lol');
-        }
-    }
 
 }

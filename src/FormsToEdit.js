@@ -9,9 +9,9 @@ export default class FormsToEdit extends Component {
     constructor(props) {
         super(props);
         this.authorizationProvider = new AuthorizationProvider();
-        this.authorizationProvider.fetch("/form/formsToEdit", {method: 'GET'})
+        this.authorizationProvider.fetch("/forms/formList", {method: 'GET'})
             .then(res => {
-                this.setState(res);
+                // this.setState(res);
         });
     }
 
