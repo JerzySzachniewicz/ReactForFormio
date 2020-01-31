@@ -17,7 +17,7 @@ ReactDOM.render(
                 <div className="w-25 p-3 header_cell"><Link to="/login">Login</Link></div>
             </div>
             <Switch>
-                <Route exact path="/" component={App}/>
+                <Route exact path="/" component={() => <App formId={0}/>}/>
                 <Route exact path="/FormEdit" component={FormsToEdit}/>
                 <Route exact path="/FormBuilder" component={MyFormBuilder}/>
                 <Route path="/login" component={Login}/>}/>

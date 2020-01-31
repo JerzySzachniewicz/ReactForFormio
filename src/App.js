@@ -15,9 +15,7 @@ export default class App extends Component{
     componentDidMount() {
         this.authorizationProvider.fetch('/forms/formSchema/' + this.props.formId)
             .then((data) => {
-                let parsedData = data;
-                parsedData['components'] = JSON.parse(data['components'])['components'];
-                this.setState({ form: parsedData,
+                this.setState({ form: data,
                     loaded : true
                 })
             })
